@@ -1,0 +1,39 @@
+interface and server
+
+interface will fork() -> execl() to start Server
+Interface accepts commands from console and send them to server for execution
+after server exeecutes command, it will send output to interface for display on console
+
+Interface creates pipes before fork() - 2 pipes
+
+Interface passes pipe file descriptor values to Server. Use arguments on exec for this
+
+Interface should detect final exit status of the Server and show message
+
+Server does 2 things before entering loop accepting commands
+1. init array of structures using data in gasData file
+2. show contents of the array to verify correct initialization
+records keep track of gas consumption of cars
+each structure consists of fields:
+  - id - string of up to 8 chars
+  - odometer - int
+  - gallons - float
+Use typedef for record structure
+
+gasData - each line has data for 1 record FORMAT:
+id odometer gallons
+DELIMITER IS SINGLE SPACE
+
+commands
+1. mpg,id - average miles per gallon for ID car
+2. list,id - list all entries by ID in increasing order of odometer reading
+3. exit - server terminates. interface detects termination, prints relevant info and exits normally
+
+Must have Makefile
+
+
+
+USE: fork, some type of exec call (such as execl), pipe, read, write, exit, waitpid, close.
+In addition your code is to check the response from the system calls for errors, display an appropriate error message and take appropriate action. In many cases that action may be just to call exit with a unique number selected.
+
+USEFUL: strchr, strcmp, strncmp, strncpy
