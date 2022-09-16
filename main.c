@@ -7,37 +7,37 @@
 #include <string.h>
 #include <unistd.h>
 
+#define STDOUT 1
 
-#define MSG "message to be written to file.\n"
-
-typedef struct Record {
+typedef struct record {
   char id[9];
   int odometer;
   float gallons;
-} Record;
+} record;
+
+void write_with_syscall(int fd, char *str, int len){
+  int err = write(fd, str, len);
+  if (err < 0) {
+    printf("write failed, errno = %d\n", errno);
+    exit(2);
+  }
+}
 
 int main(void) {
   int n, fd, err;
   char buf[50];
-  //fd = open ("./myFile", O_CREAT + O_RDWR, 0755);
-  fd = open("./gasData", O_RDONLY, 0755);
+  fd = open("./gasData", O_RDONLY);
   
   if (fd < 0) {
     printf("open failed, errno = %d\n", errno);
     exit(1);
   }
 
-
-  /* Write information to the file. */
-  //err = write (fd, MSG, strlen(MSG)+1);
   n = read(fd, buf, 50);
   printf("read bytes: %d\n", n);
   buf[n] = '\0';
-  //write(1, buf, 50);
-  //write(1, buf, 1);
-  //int i;
-  //printf("%s", buf);
-  struct Record records[1000];
+  
+  struct record records[1000];
   int len = 0;
   //Record arrStruct;
   //arrStruct.gallons = 20.0;
@@ -49,10 +49,11 @@ int main(void) {
   //printf("arrStruct: id %s\n", arrStruct.id);
 
   
-  Record testRec;
-  testRec.gallons = 10.0;
-  testRec.odometer = 83;
-  char name[9] = "Joe\0";
+  //Record testRec;
+  //testRec.gallons = 10.0;
+  //testRec.odometer = 83;
+  //char name[9] = "Joe\0";
+  
   //strcpy (testRec.id, name);
   //testRec.id = name;
   
@@ -82,14 +83,15 @@ int main(void) {
     sprintf(charodometer, "%d", records[i].odometer);
     sprintf(chargallons, "%f", records[i].gallons);
     
-    write(1, chari, strlen(chari)+1);
-    write(1, ": id = ", 8);
-    write(1, records[i].id, strlen(records[i].id)+1);
-    write(1, ", odometer = ", 14);
-    write(1, charodometer, strlen(charodometer)+1);
-    write(1, ", gallons = ", 13);
-    write(1, chargallons, strlen(chargallons)+1);
-    write(1, "\n", 1);
+    //write(STDOUT, chari, strlen(chari)+1);
+    write_with_syscall(STDOUT, chari, strlen(chari)+1);
+    write(STDOUT, ": id = ", 8);
+    write(STDOUT, records[i].id, strlen(records[i].id)+1);
+    write(STDOUT, ", odometer = ", 14);
+    write(STDOUT, charodometer, strlen(charodometer)+1);
+    write(STDOUT, ", gallons = ", 13);
+    write(STDOUT, chargallons, strlen(chargallons)+1);
+    write(STDOUT, "\n", 1);
   }
   
   if (err < 0) {
@@ -105,3 +107,5 @@ int main(void) {
 // negative, positive, etc
 //TODO - makefile
 // TODO - proper gasData file with edge cases
+
+//separate function for write syscall with error checking
