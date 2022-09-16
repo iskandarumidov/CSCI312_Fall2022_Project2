@@ -27,7 +27,7 @@ Must have Makefile
 - pipe    - 
 - read    - DONE
 - write   - DONE
-- exit    - 
+- exit    - DONE
 - waitpid - 
 - close   - DONE
 

@@ -1,19 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <string.h>
-#include <unistd.h>
-
-#define STDOUT 1
-
-typedef struct record {
-  char id[9];
-  int odometer;
-  float gallons;
-} record;
+#include "main.h"
 
 void write_with_syscall(int fd, char *str, int len){
   int err = write(fd, str, len);
@@ -24,7 +9,7 @@ void write_with_syscall(int fd, char *str, int len){
 }
 
 int main(void) {
-  int n, fd, err;
+  int n, fd;
   char buf[50];
   fd = open("./gasData", O_RDONLY);
   
@@ -34,34 +19,14 @@ int main(void) {
   }
 
   n = read(fd, buf, 50);
-  printf("read bytes: %d\n", n);
   buf[n] = '\0';
   
   struct record records[1000];
   int len = 0;
-  //Record arrStruct;
-  //arrStruct.gallons = 20.0;
-  //arrStruct.odometer = 76;
-  //strcpy (arrStruct.id, "ISK\0");
-  //arrStruct.id 
-  //printf("arrStruct: gall %f\n", arrStruct.gallons);
-  //printf("arrStruct: odo %d\n", arrStruct.odometer);
-  //printf("arrStruct: id %s\n", arrStruct.id);
-
   
-  //Record testRec;
-  //testRec.gallons = 10.0;
-  //testRec.odometer = 83;
-  //char name[9] = "Joe\0";
-  
-  //strcpy (testRec.id, name);
-  //testRec.id = name;
-  
-  //printf("rec %f", testRec.gallons);
-  //printf("rec %s", testRec.id);
   char* token = strtok(buf, " \n");
   while (token != NULL) {
-    strcpy (records[len].id, token);
+    strcpy(records[len].id, token);
     
     token = strtok(NULL, " \n");
     records[len].odometer = atoi(token);
@@ -83,29 +48,20 @@ int main(void) {
     sprintf(charodometer, "%d", records[i].odometer);
     sprintf(chargallons, "%f", records[i].gallons);
     
-    //write(STDOUT, chari, strlen(chari)+1);
     write_with_syscall(STDOUT, chari, strlen(chari)+1);
-    write(STDOUT, ": id = ", 8);
-    write(STDOUT, records[i].id, strlen(records[i].id)+1);
-    write(STDOUT, ", odometer = ", 14);
-    write(STDOUT, charodometer, strlen(charodometer)+1);
-    write(STDOUT, ", gallons = ", 13);
-    write(STDOUT, chargallons, strlen(chargallons)+1);
-    write(STDOUT, "\n", 1);
+    write_with_syscall(STDOUT, ": id = ", 8);
+    write_with_syscall(STDOUT, records[i].id, strlen(records[i].id)+1);
+    write_with_syscall(STDOUT, ", odometer = ", 14);
+    write_with_syscall(STDOUT, charodometer, strlen(charodometer)+1);
+    write_with_syscall(STDOUT, ", gallons = ", 13);
+    write_with_syscall(STDOUT, chargallons, strlen(chargallons)+1);
+    write_with_syscall(STDOUT, "\n", 1);
   }
   
-  if (err < 0) {
-    printf("write failed, errno = %d\n", errno);
-    exit(2);
-  }
-  //printf ("%d characters written to file\n", err);
   close (fd);
   return 0;
 }
 
-//TODO - err check like file not there, etc - err, bytes written
-// negative, positive, etc
-//TODO - makefile
+// TODO - makefile
 // TODO - proper gasData file with edge cases
-
-//separate function for write syscall with error checking
+// TODO - headers
