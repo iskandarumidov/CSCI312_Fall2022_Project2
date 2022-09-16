@@ -71,13 +71,9 @@ int main(void) {
     token = strtok(NULL, " \n");
     len++;
   }
-  
-  int i;
-  for (i=0; i < len;  i++) {
-    //printf("----------\n");
-    write(1, "element = ", 10);
-    //printf("%d: id = ", i);
-    //int i = 247593;
+
+  for (int i=0; i < len;  i++) {
+    write(1, "element = ", 11);
     char chari[10];
     char charodometer[10];
     char chargallons[10];
@@ -85,7 +81,6 @@ int main(void) {
     sprintf(chari, "%d", i);
     sprintf(charodometer, "%d", records[i].odometer);
     sprintf(chargallons, "%f", records[i].gallons);
-    //printf("charint: %s", charint);
     
     write(1, chari, strlen(chari)+1);
     write(1, ": id = ", 8);
@@ -94,19 +89,8 @@ int main(void) {
     write(1, charodometer, strlen(charodometer)+1);
     write(1, ", gallons = ", 13);
     write(1, chargallons, strlen(chargallons)+1);
-    
     write(1, "\n", 1);
-    //printf("element = %d: id = %s, odometer = %d, gallons = %f\n", i, records[i].id, records[i].odometer, records[i].gallons);
-    //printf("----------\n");
   }
-  
-  /*
-  for (i=0; i < n;  i++) {
-    write(1, buf, i);
-    printf("%s", buf);
-    //write(1, buf, sizeof(buf[i]));
-    //write(1, buf, sizeof(char));
-  }*/
   
   if (err < 0) {
     printf("write failed, errno = %d\n", errno);
@@ -117,3 +101,7 @@ int main(void) {
   return 0;
 }
 
+//TODO - err check like file not there, etc - err, bytes written
+// negative, positive, etc
+//TODO - makefile
+// TODO - proper gasData file with edge cases

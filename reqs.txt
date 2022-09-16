@@ -14,15 +14,6 @@ Server does 2 things before entering loop accepting commands
 1. init array of structures using data in gasData file
 2. show contents of the array to verify correct initialization
 records keep track of gas consumption of cars
-each structure consists of fields:
-  - id - string of up to 8 chars
-  - odometer - int
-  - gallons - float
-Use typedef for record structure
-
-gasData - each line has data for 1 record FORMAT:
-id odometer gallons
-DELIMITER IS SINGLE SPACE
 
 commands
 1. mpg,id - average miles per gallon for ID car
@@ -31,9 +22,15 @@ commands
 
 Must have Makefile
 
+- fork    - 
+- execl   - 
+- pipe    - 
+- read    - DONE
+- write   - DONE
+- exit    - 
+- waitpid - 
+- close   - DONE
 
-
-USE: fork, some type of exec call (such as execl), pipe, read, write, exit, waitpid, close.
 In addition your code is to check the response from the system calls for errors, display an appropriate error message and take appropriate action. In many cases that action may be just to call exit with a unique number selected.
 
 USEFUL: strchr, strcmp, strncmp, strncpy
