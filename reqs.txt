@@ -31,6 +31,16 @@ Must have Makefile
 - waitpid - 
 - close   - DONE
 
-In addition your code is to check the response from the system calls for errors, display an appropriate error message and take appropriate action. In many cases that action may be just to call exit with a unique number selected.
 
+
+
+In addition your code is to check the response from the system calls for errors, display an appropriate error message and take appropriate action. In many cases that action may be just to call exit with a unique number selected.
 USEFUL: strchr, strcmp, strncmp, strncpy
+
+
+// TODO - makefile
+// TODO - proper gasData file with edge cases
+// TODO - headers
+// TODO - put function defs into headers
+// TODO - comments
+// TODO - handle invalid commands

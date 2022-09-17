@@ -7,10 +7,6 @@
 #include <string.h>
 #include <unistd.h>
 
-#define STDOUT 1
-
-typedef struct record {
-  char id[9];
-  int odometer;
-  float gallons;
-} record;
+#define MPG "mpg,"
+#define LIST "list,"
+#define EXIT "exit"
