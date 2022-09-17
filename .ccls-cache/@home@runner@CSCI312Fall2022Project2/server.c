@@ -68,11 +68,22 @@ void print_records(){
   }
 }
 
+char *getId(char *inp) {
+  char *res = malloc(strlen(inp));
+  res = strtok(inp,",");
+  res = strtok (NULL, ",");
+  return res;
+}
+
 int main(int argc, char *argv[]) {
-  printf("ARGC: %d\n", argc);
-  printf("ARGV[0]: %s\n", argv[0]);
+  //printf("ARGC: %d\n", argc);
+  //printf("ARGV[0]: %s\n", argv[0]);
+  read_records(DB_FILE, O_RDONLY);
+  print_records();
   if(argc == 3){
-    printf("ARGV[1]: %s\n", argv[1]);
+    while(1){
+
+    //printf("ARGV[1]: %s\n", argv[1]);
     int n;
     char buf[BUFFER_SIZE];
     n = read(atoi(argv[1]), &buf, BUFFER_SIZE);
@@ -81,22 +92,59 @@ int main(int argc, char *argv[]) {
       exit(1);
     }
 
-  buf[n] = '\0';
-  printf("CHILD FROM PIPE: %s\n", buf);
+    buf[n] = '\0';
+    //printf("CHILD FROM PIPE: %s\n", buf);
+    if(!strncmp(buf, "mpg", strlen("mpg"))){
+      //printf("CHILD: got MPG\n");
+      char *res = getId(buf);
+      int gal = 0.0;
+      float miles = 0.0;
+      for (int i=0; i < len; i++) {
+        if (!strncmp(res, records[i].id, strlen(res))){
+          gal = gal + records[i].gallons;
+          miles = miles + (float) records[i].odometer;
+        }
+      }
+      char result[100];
+      sprintf(result, "%f", miles / gal);
+      
+      if (gal == 0.0 | miles == 0){
+        write_with_syscall(atoi(argv[2]), "0", strlen("0")+1);
+      }else{
+        write_with_syscall(atoi(argv[2]), result, strlen(result)+1);  
+      }
+      
+      
+      //write_with_syscall(atoi(argv[2]), "GOT MPG", strlen("GOT MPG")+1);
+      
+      
+      /*int err = write(atoi(argv[2]), "hello from child", strlen("hello from child")+1);
+      if (err == -1 ) {
+        printf ("Error on write to pipe: %d\n", errno);
+        exit (1);
+      }*/
+      
+    } else if (!strncmp(buf, "list", strlen("list"))){
+      struct record filtered[MAX_RECORDS];
+      int filtered_len= 0;
 
-  
-  int err = write(atoi(argv[2]), "hello from child", strlen("hello from child")+1);
-  if (err == -1 ) {
-    printf ("Error on write to pipe: %d\n", errno);
-    exit (1);
-  }
+      for (int i=0; i < len; i++) {
+        if (!strncmp(res, records[i].id, strlen(res))){
+            gal = gal + records[i].gallons;
+            miles = miles + (float) records[i].odometer;
+        }
+      }
+      
+    } else if (!strncmp(buf, "exit", strlen("exit"))){
+      exit(0);
+    } else{
+      printf("UNKNOWN\n");
+    }
+    
+    
   
     
   }
-  read_records(DB_FILE, O_RDONLY);
-  print_records();
-
-  
-  return 0;
+  }
 }
 

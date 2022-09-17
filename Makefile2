@@ -1,0 +1,10 @@
+all : test
+
+test : server.o
+        cc -o server server.c 
+
+test.o : test.c
+        gcc -c test.c
+
+clean :
+        rm test *.o

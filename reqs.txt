@@ -1,15 +1,3 @@
-Interface accepts commands from console and send them to server for execution
-after server exeecutes command, it will send output to interface for display on console
-
-Interface creates pipes before fork() - 2 pipes
-
-Interface passes pipe file descriptor values to Server. Use arguments on exec for this
-
-Server does 2 things before entering loop accepting commands
-1. init array of structures using data in gasData file
-2. show contents of the array to verify correct initialization
-records keep track of gas consumption of cars
-
 commands
 1. mpg,id - average miles per gallon for ID car
 2. list,id - list all entries by ID in increasing order of odometer reading
