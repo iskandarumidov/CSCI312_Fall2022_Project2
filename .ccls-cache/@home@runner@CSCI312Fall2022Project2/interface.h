@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
 #define MPG "mpg,"
 #define LIST "list,"

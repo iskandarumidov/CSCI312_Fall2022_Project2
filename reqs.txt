@@ -1,14 +1,9 @@
-interface and server
-
-interface will fork() -> execl() to start Server
 Interface accepts commands from console and send them to server for execution
 after server exeecutes command, it will send output to interface for display on console
 
 Interface creates pipes before fork() - 2 pipes
 
 Interface passes pipe file descriptor values to Server. Use arguments on exec for this
-
-Interface should detect final exit status of the Server and show message
 
 Server does 2 things before entering loop accepting commands
 1. init array of structures using data in gasData file
@@ -22,15 +17,14 @@ commands
 
 Must have Makefile
 
-- fork    - 
-- execl   - 
+- fork    - DONE
+- execl   - DONE
 - pipe    - 
 - read    - DONE
 - write   - DONE
 - exit    - DONE
-- waitpid - 
+- waitpid - DONE
 - close   - DONE
-
 
 
 
@@ -44,3 +38,4 @@ USEFUL: strchr, strcmp, strncmp, strncpy
 // TODO - put function defs into headers
 // TODO - comments
 // TODO - handle invalid commands
+// TODO - close unnecessary pipe ends right away in parent and child
