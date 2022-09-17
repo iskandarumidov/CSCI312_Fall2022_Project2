@@ -19,7 +19,7 @@ Must have Makefile
 
 - fork    - DONE
 - execl   - DONE
-- pipe    - 
+- pipe    - DONE
 - read    - DONE
 - write   - DONE
 - exit    - DONE
@@ -38,4 +38,6 @@ USEFUL: strchr, strcmp, strncmp, strncpy
 // TODO - put function defs into headers
 // TODO - comments
 // TODO - handle invalid commands
-// TODO - close unnecessary pipe ends right away in parent and child
+// TODO - close unnecessary pipe ends right away in parent and child\\
+// TODO email him
+// TODO change saved date on linux
