@@ -28,7 +28,10 @@ int main(void)
     if (childPid == 0) {
       close (toChild[1]);
     }
-    err = execl ("./server", "server", (char *)NULL);
+    char char_fd_to_child[10];
+    sprintf(char_fd_to_child, "%d", toChild[0]);
+    
+    err = execl ("./server", "server", char_fd_to_child, (char *)NULL);
     if ( err == -1 ) {
       printf ("parent: execl failed, errno = %d\n", errno);
       exit (2);
@@ -38,7 +41,7 @@ int main(void)
   printf ("parent: child created with pid = %d\n", childPid);
   close (toChild[0]);
 
-  err = write (toChild[1], "test", strlen("test")+1);
+  err = write (toChild[1], "grgument_in_pipe", strlen("argument_in_pipe")+1);
   if (err == -1 ) {
     printf ("Error on write to pipe: %d\n", errno);
     exit (1);

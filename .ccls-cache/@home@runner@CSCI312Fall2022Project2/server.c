@@ -67,7 +67,30 @@ void print_records(){
   }
 }
 
-int main(void) {
+int main(int argc, char *argv[]) {
+  printf("ARGC: %d\n", argc);
+  printf("ARGV[0]: %s\n", argv[0]);
+  if(argc == 2){
+    printf("ARGV[1]: %s\n", argv[1]);
+    int n;
+    char buf[BUFFER_SIZE];
+    //int fd = open(argv[1],O_RDONLY);
+    n = read(atoi(argv[1]), &buf, BUFFER_SIZE);
+    if (n < 0) {
+      printf("pipe open failed, errno = %d\n", errno);
+      exit(1);
+    }
+
+    //n = read(fd, buf, BUFFER_SIZE);
+    //if (n < 0) {
+    //  printf("read failed, errno = %d\n", errno);
+    //  exit(1);
+    //}
+  buf[n] = '\0';
+  printf("READ FROM PIPE: %s\n", buf);
+  printf("READ FROM BYTES: %d\n", n);
+    
+  }
   read_records(DB_FILE, O_RDONLY);
   print_records();
 
