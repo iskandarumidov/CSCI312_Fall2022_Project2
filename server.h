@@ -8,6 +8,7 @@
 #include <unistd.h>
 
 #define STDOUT 1
+#define STDERR 2
 #define DB_FILE "./gasData"
 #define MAX_RECORDS 1000
 #define BUFFER_SIZE 40000

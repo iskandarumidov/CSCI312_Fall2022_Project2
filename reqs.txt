@@ -17,18 +17,6 @@ commands
 
 Must have Makefile
 
-- fork    - DONE
-- execl   - DONE
-- pipe    - DONE
-- read    - DONE
-- write   - DONE
-- exit    - DONE
-- waitpid - DONE
-- close   - DONE
-
-
-
-In addition your code is to check the response from the system calls for errors, display an appropriate error message and take appropriate action. In many cases that action may be just to call exit with a unique number selected.
 USEFUL: strchr, strcmp, strncmp, strncpy
 
 
@@ -41,3 +29,4 @@ USEFUL: strchr, strcmp, strncmp, strncpy
 // TODO - close unnecessary pipe ends right away in parent and child\\
 // TODO email him
 // TODO change saved date on linux
+// TODO check for errors after syscalls
