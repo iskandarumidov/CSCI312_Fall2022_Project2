@@ -1,10 +1,10 @@
-all : test
+all: server interface
 
-test : server.o
-        cc -o server server.c 
+server:
+  cc server.c -o server -std=c99 -w
 
-test.o : test.c
-        gcc -c test.c
+interface:
+  cc interface.c -std=c99 -w
 
-clean :
-        rm test *.o
+hello:
+	echo "Hello, World"
