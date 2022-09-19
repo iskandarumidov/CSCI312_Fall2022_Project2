@@ -13,6 +13,10 @@
 #define MAX_RECORDS 1000
 #define BUFFER_SIZE 40000
 
+#define MPG "mpg,"
+#define LIST "list,"
+#define EXIT "exit"
+
 
 typedef struct record {
   char id[9];
