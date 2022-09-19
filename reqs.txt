@@ -1,22 +1,7 @@
-commands
-1. mpg,id - average miles per gallon for ID car
-2. list,id - list all entries by ID in increasing order of odometer reading
-3. exit - server terminates. interface detects termination, prints relevant info and exits normally
-
-Must have Makefile
-
-USEFUL: strchr, strcmp, strncmp, strncpy
-
-
 // TODO - makefile
 // TODO - proper gasData file with edge cases
-// TODO - headers
-// TODO - put function defs into headers
-// TODO - comments
-// TODO - handle invalid commands
 // TODO - close unnecessary pipe ends right away in parent and child\\
 // TODO email him
 // TODO change saved date on linux
 // TODO check for errors after syscalls
 // TODO error checking to sep function
-// TODO qsort

@@ -23,3 +23,10 @@ typedef struct record {
   int odometer;
   float gallons;
 } record;
+
+char* concat(const char *s1, const char *s2);
+char* save_res_to_arr(int print_until, struct record records_to_print[]);
+void write_with_syscall(int fd, char *str, int len);
+void read_records(char *str, int flags);
+char *getId(char *inp);
+int compare (const void *a, const void *b);

@@ -93,6 +93,13 @@ char *getId(char *inp) {
   return res;
 }
 
+// Compares two record structs
+int compare (const void *a, const void *b){
+  record *recordA = (record *)a;
+  record *recordB = (record *)b;
+  return (recordA->odometer - recordB->odometer);
+}
+
 int main(int argc, char *argv[]) {
   read_records(DB_FILE, O_RDONLY);
   char *initialRead = save_res_to_arr(len, records);
@@ -144,6 +151,9 @@ int main(int argc, char *argv[]) {
             filtered_len++;
           }
         }
+        // qsort sorts filtered records using compare() function
+        qsort(filtered, filtered_len, sizeof(record), compare);
+        
         // First get result in res array, then write to parent
         char *concatenated = save_res_to_arr(filtered_len, filtered);
         write_with_syscall(atoi(argv[2]), concatenated, strlen(concatenated)+1);

@@ -15,18 +15,15 @@ typedef struct {
 order list[6];
 int i = 0;
 
-int compare (const void * a, const void * b)
-{
-
+int compare (const void * a, const void * b){
   order *orderA = (order *)a;
   order *orderB = (order *)b;
-
-  return ( orderB->price - orderA->price );
+  return ( orderA->price - orderB->price );
 }
 
 int main ()
 {
-    srand ( time(NULL) );
+    srand (time(NULL));
 
     printf("Before sorting\n");
     for(i=0; i<6; i++){ 
