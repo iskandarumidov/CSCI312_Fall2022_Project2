@@ -1,7 +1,26 @@
 // TODO - makefile
 // TODO - proper gasData file with edge cases
-// TODO - close unnecessary pipe ends right away in parent and child\\
+// TODO - close unnecessary pipe ends right away in parent and child
 // TODO email him
 // TODO change saved date on linux
 // TODO check for errors after syscalls
 // TODO error checking to sep function
+
+red
+(89114 + 89712 + 90229 + 89300) / (0.000000 + 13.500000 + 15.300000 + 7.100000)
+
+9982.03342618
+
+358355 / 
+
+
+89712-89114 = 598
+
+
+89114 0.000000
+89300 7.100000
+89712 13.500000
+90229 15.300000
+
+(90229-89114)/(7.10+13.5+15.3)
+(879-16)/(0.0 + 20 + 61 + 50)
