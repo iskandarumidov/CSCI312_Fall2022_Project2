@@ -73,8 +73,8 @@ int main(void)
       exit(EXIT_FAILURE);
     }
     buf[n] = '\0';
-    fflush(stdout);
-    sleep(1); // Sometimes STDOUT gets garbled, sleep for 1 sec for it to resolve
+    fflush(stderr);
+    sleep(1); // Sometimes STDERR gets garbled, sleep for 1 sec for it to resolve
 
     if (!strncmp(inp, "exit", strlen("exit"))){
       break;

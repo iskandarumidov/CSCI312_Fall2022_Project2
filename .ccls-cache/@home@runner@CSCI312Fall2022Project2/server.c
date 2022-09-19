@@ -82,10 +82,8 @@ void read_records(char *str, int flags){
     token = strtok(NULL, " \n");
     len++;
   }
-
   close(fd);
 }
-
 
 // Extracts record ID from commands like mpg,123 or list,123
 char *getId(char *inp) {
@@ -97,15 +95,13 @@ char *getId(char *inp) {
 
 int main(int argc, char *argv[]) {
   read_records(DB_FILE, O_RDONLY);
-
   char *initialRead = save_res_to_arr(len, records);
   write_with_syscall(STDERR, initialRead, strlen(initialRead)+1);
 
-  
   // If 2 file descriptors not present, Server was not called from Interface
   // Just gasData content will be printed
   if(argc == 3){      
-    while(1){
+    while(1){      // Start listening for commands from Interface
       int n;
       char buf[BUFFER_SIZE];
       n = read(atoi(argv[1]), &buf, BUFFER_SIZE);
@@ -115,17 +111,18 @@ int main(int argc, char *argv[]) {
       }
 
       buf[n] = '\0';
+      // Determine type of command
       if(!strncmp(buf, MPG, strlen(MPG))){
         char *res = getId(buf);
         int gal = 0.0;
         float miles = 0.0;
-        for (int i=0; i < len; i++) {
+        for (int i=0; i < len; i++) {      // Calculage MPG
           if (!strncmp(res, records[i].id, strlen(res))){
             gal = gal + records[i].gallons;
             miles = miles + (float) records[i].odometer;
           }
         }
-        char result[100];
+        char result[100];    // Save float result to be returned
         sprintf(result, "%f", miles / gal);
         
         if (gal == 0.0 | miles == 0){    // If 0 in numerator or denominator, just return 0
@@ -134,25 +131,24 @@ int main(int argc, char *argv[]) {
           write_with_syscall(atoi(argv[2]), result, strlen(result)+1);  
         }
         
-      } else if (!strncmp(buf, LIST, strlen(LIST))){
-        struct record filtered[MAX_RECORDS];
+      } else if (!strncmp(buf, LIST, strlen(LIST))){  // If command is LIST
+        struct record filtered[MAX_RECORDS];          // Only matching IDs go here
         int filtered_len= 0;
         char *res = getId(buf);
         
         for (int i=0; i < len; i++) {
-          
-          if (!strncmp(res, records[i].id, strlen(res)) && (strlen(res) == strlen(records[i].id))){
+          if (!strncmp(res, records[i].id, strlen(res)) && (strlen(res) == strlen(records[i].id))){  // If ID exactly the same
             strcpy(filtered[filtered_len].id, records[i].id);
             filtered[filtered_len].gallons = records[i].gallons;
             filtered[filtered_len].odometer = records[i].odometer;
             filtered_len++;
           }
         }
-        
+        // First get result in res array, then write to parent
         char *concatenated = save_res_to_arr(filtered_len, filtered);
         write_with_syscall(atoi(argv[2]), concatenated, strlen(concatenated)+1);
         
-        sleep(1);
+        sleep(1);  // Need to wait to clear up the STDERR stream
       } else if (!strncmp(buf, EXIT, strlen(EXIT))){
         write_with_syscall(atoi(argv[2]), "CHILD EXITING...", strlen("CHILD EXITING...")+1);
         exit(EXIT_SUCCESS);
@@ -162,4 +158,3 @@ int main(int argc, char *argv[]) {
     }
   }
 }
-
