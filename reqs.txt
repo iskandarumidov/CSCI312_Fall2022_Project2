@@ -18,3 +18,5 @@ USEFUL: strchr, strcmp, strncmp, strncpy
 // TODO email him
 // TODO change saved date on linux
 // TODO check for errors after syscalls
+// TODO error checking to sep function
+// TODO qsort

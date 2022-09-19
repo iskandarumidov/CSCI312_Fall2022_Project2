@@ -1,11 +1,4 @@
 #include "interface.h"
-/*
-char *getId(char *inp) {
-  char *res = malloc(strlen(inp));
-  res = strtok(inp,",");
-  res = strtok (NULL, ",");
-  return res;
-}*/
 
 int main(void)
 {
@@ -45,39 +38,12 @@ int main(void)
     }
     exit(EXIT_SUCCESS);
   }
-  printf ("parent: child created with pid = %d\n", childPid);
   close (toChild[0]);
   close (toParent[1]);
-
-  /*
-  err = write (toChild[1], "grgument_in_pipe", strlen("argument_in_pipe")+1);
-  if (err == -1 ) {
-    printf ("Error on write to pipe: %d\n", errno);
-    exit (1);
-  }*/
-
-  /*
-  int n;
-  char buf[10000];
-  n = read(toParent[0], &buf, 10000);
-  if (n < 0) {
-    printf("pipe read failed, errno = %d\n", errno);
-    exit(1);
-  }
-  buf[n] = '\0';
-  fflush(stdout);
-  sleep(1); // Sometimes STDOUT gets garbled, sleep for 1 sec for it to resolve
-  printf("PARENT FROM PIPE: %s\n", buf);
-  printf("PARENT FROM BYTES: %d\n", n);*/
-
-  
-
-
 
   
   char inp[20];    // Input
   while(1){
-    //printf("Input command:\n");
     fprintf(stderr, "Input command:\n");
     scanf("%s", &inp);
     // Once Interface has input, send it over to Server
@@ -95,39 +61,14 @@ int main(void)
     int i = 0;
     char temp;
 
-    
-    //while (read(toParent[0], &temp, 1) > 1) {
-      //if (read(toParent[0], &buf, 10000) < 1) break;
-      //result[i] = buf[0];
-      //strcpy(result, buf);
-      //i++;
-      //fprintf(stderr, "chaine : %c\n", temp);
-    //}
-    //fprintf(stderr, "\n");
-    //fprintf(stderr, "res: %s\n", buf);
-    //fprintf(stderr, "HELLO\n");
-    //n = read(toParent[0], &buf, 10000);
-    //fprintf(stderr, "res: %s\n", buf);
-
-/*
-    while(1){
-      n = read(toParent[0], &buf, 1);
-      if (n < 1){
-        break;
-      }
-      fprintf(stderr, "res: %s\n", buf);
-      fprintf(stderr, "1\n");
-    }*/
     n = read(toParent[0], &buf, 10000);
     for (int i=0; i < n; i++) {
-      //if(buf[i] == "\0"){
       if (buf[i] == NULL || buf[i] == '\0'){
         fprintf(stderr, "\n");
       }else{
         fprintf(stderr, "%c", buf[i]);
       }
     }
-    //fprintf(stderr, "\n");
     
     if (n < 0) {
       printf("pipe read failed, errno = %d\n", errno);
@@ -136,7 +77,6 @@ int main(void)
     buf[n] = '\0';
     fflush(stdout);
     sleep(1); // Sometimes STDOUT gets garbled, sleep for 1 sec for it to resolve
-    //printf("PARENT FROM PIPE: %s\n", buf);
 
     if (!strncmp(inp, "exit", strlen("exit"))){
       break;

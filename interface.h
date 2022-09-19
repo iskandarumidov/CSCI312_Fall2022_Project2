@@ -7,8 +7,3 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
-
-/*
-#define MPG "mpg,"
-#define LIST "list,"
-#define EXIT "exit"*/
