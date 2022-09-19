@@ -55,13 +55,11 @@ int main(void)
 
     // After command was sent to Server, read response from pipe
     int n;
-    char buf[10000];
-    //n = read(toParent[0], &buf, 10000);
-    char result[10000];
+    char buf[BUFFER_SIZE];
     int i = 0;
     char temp;
 
-    n = read(toParent[0], &buf, 10000);
+    n = read(toParent[0], &buf, BUFFER_SIZE);
     for (int i=0; i < n; i++) {
       if (buf[i] == NULL || buf[i] == '\0'){
         fprintf(stderr, "\n");

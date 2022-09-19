@@ -7,3 +7,5 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+
+#define BUFFER_SIZE 40000
