@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <unistd.h>
+#include <limits.h>
 
 #define STDOUT 1
 #define STDERR 2

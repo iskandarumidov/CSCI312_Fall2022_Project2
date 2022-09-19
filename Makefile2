@@ -7,4 +7,4 @@ interface:
   cc interface.c -std=c99 -w
 
 hello:
-	echo "Hello, World"
+	echo "Hello, World"	

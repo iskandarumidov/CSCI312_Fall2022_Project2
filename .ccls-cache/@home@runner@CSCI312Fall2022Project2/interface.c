@@ -60,6 +60,10 @@ int main(void)
     char temp;
 
     n = read(toParent[0], &buf, BUFFER_SIZE);
+		if (n == -1) {
+    	printf ("Error on pipe read: %d\n", errno);
+    	exit(EXIT_FAILURE);
+  	}
     for (int i=0; i < n; i++) {
       if (buf[i] == NULL || buf[i] == '\0'){
         fprintf(stderr, "\n");

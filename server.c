@@ -121,18 +121,27 @@ int main(int argc, char *argv[]) {
       // Determine type of command
       if(!strncmp(buf, MPG, strlen(MPG))){
         char *res = getId(buf);
-        int gal = 0.0;
-        float miles = 0.0;
+        // int gal = 0.0;
+        // float miles = 0.0;
+        float min_odometer = INT_MAX;
+        float max_odometer = INT_MIN;
+        float sum_gallons = 0.0;
+
         for (int i=0; i < len; i++) {      // Calculage MPG
-          if (!strncmp(res, records[i].id, strlen(res))){
-            gal = gal + records[i].gallons;
-            miles = miles + (float) records[i].odometer;
+          if (!strncmp(res, records[i].id, strlen(res)) && (strlen(res) == strlen(records[i].id))){
+            if ((float) records[i].odometer < min_odometer){
+              min_odometer = (float) records[i].odometer;
+            }
+            if ((float) records[i].odometer > max_odometer){
+              max_odometer = (float) records[i].odometer;
+            }
+            sum_gallons = sum_gallons + records[i].gallons;
           }
         }
         char result[100];    // Save float result to be returned
-        sprintf(result, "%f", miles / gal);
+        sprintf(result, "%f", (max_odometer - min_odometer) / sum_gallons);
         
-        if (gal == 0.0 | miles == 0){    // If 0 in numerator or denominator, just return 0
+        if (sum_gallons == 0.0 | min_odometer == INT_MAX | max_odometer == INT_MIN){    // If 0 in numerator or denominator, just return 0
           write_with_syscall(atoi(argv[2]), "0", strlen("0")+1);
         }else{                           // Otherwise, return actual result
           write_with_syscall(atoi(argv[2]), result, strlen(result)+1);  
