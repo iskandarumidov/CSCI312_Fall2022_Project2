@@ -1,5 +1,0 @@
-// TODO - proper gasData file with edge cases
-// TODO email him
-// TODO change saved date on linux & filespace
-// TODO delete old proj from profile
-// TODO move to nenw project + make
